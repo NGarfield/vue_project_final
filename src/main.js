@@ -7,6 +7,8 @@ global.jQuery = jQuery
 global.$ = jQuery
 import 'popper.js';
 import 'bootstrap';
+// import axios from 'axios'
+// import VueAxios from 'vue-axios'
 
 Vue.config.productionTip = false
 
