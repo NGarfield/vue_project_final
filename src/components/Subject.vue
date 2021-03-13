@@ -3,7 +3,7 @@
     <div class="card bg-dark text-white">
       <img class="card-img" src="../assets/IMG_2103.jpg" alt="Card image" style="height: 500px;">
     </div>
-    <h1>{{ msg }}</h1>
+    <!-- <h1>{{ msg }}</h1> -->
     <section class="container">
       <div class="container">
         <div class="row hidden-xs">
@@ -88,7 +88,7 @@
                     </tr>
                   </thead>
                   <tbody id="myTable">
-                    <tr v-for="subject in subjects" :key="subject.id">
+                    <tr v-for="subject in this.subjects" :key="subject.id">
                       <td v-if="subject.name_group == select" class="th-sm1">
                         {{ subject.id_subject }}
                       </td>
@@ -111,6 +111,7 @@
   </div>
 </template>
 <script>
+import axios from "axios"
 export default {
   name: "subject",
   data() {
@@ -124,9 +125,30 @@ export default {
       subjects: [],
     };
   },
-  async created() {
-    var response = await fetch("http://127.0.0.1:8000/api/subjects/");
-    this.subjects = await response.json();
+  created() {
+    axios
+      .get('http://127.0.0.1:8000/api/subjects/')
+      .then(response => {
+        this.subjects = response.data
+        console.log(response);
+      })
+    // console.log("aaaa");
+    // var response = await fetch("http://127.0.0.1:8000/api/subjects/");
+    // this.subjects = await response.json();
+    // console.log(this.subjects);
+    // fetch('http://127.0.0.1:8000/api/subjects/', {
+    //   method: 'GET',
+    //   headers: {
+    //     'content-type': 'application/json'
+    //   },
+    // })
+    // .then(response => {
+      
+    //   this.subjects = response.json()
+    //   console.log(this.subjects);
+    // })
+    // .catch(err => alert(err.message));
+
   },
   methods: {
     selectSubject(select) {
